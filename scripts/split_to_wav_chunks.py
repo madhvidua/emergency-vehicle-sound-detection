@@ -2,6 +2,7 @@ import os
 from pydub import AudioSegment
 import argparse
 
+
 def format_duration(ms):
     seconds = ms // 1000
     minutes = seconds // 60
@@ -14,6 +15,7 @@ def format_duration(ms):
         return f"{minutes}m{seconds}s"
     else:
         return f"{seconds}s"
+
 
 def split_audio(file_path, chunk_length_ms, output_folder):
     audio = AudioSegment.from_file(file_path)
@@ -36,6 +38,7 @@ def split_audio(file_path, chunk_length_ms, output_folder):
         chunk.export(f"{chunk_name}.wav", format="wav")
         print(f"Exported {chunk_name}.wav")
 
+
 def process_all_files(input_folder="data", chunk_length_ms=3600000):
     for file_name in os.listdir(input_folder):
         if file_name.endswith(".m4a"):
@@ -45,6 +48,8 @@ def process_all_files(input_folder="data", chunk_length_ms=3600000):
             output_folder = os.path.join(input_folder, f"{base_name}_{duration}")
             split_audio(file_path, chunk_length_ms, output_folder)
 
+
+# Example usage: ```pyhton scripts/split_to_wav_chunks.py```
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Split audio files into chunks.")
     parser.add_argument("--input_folder", type=str, default="data", help="Folder containing audio files")
