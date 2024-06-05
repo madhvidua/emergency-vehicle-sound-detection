@@ -1,0 +1,11 @@
+numpy
+scipy
+librosa
+torch
+transformers
+soundfile
+matplotlib
+jupyter
+notebook
+humanize
+matplotlib
