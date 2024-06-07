@@ -1,9 +1,7 @@
 import os
 from pydub import AudioSegment
-import datetime
 import argparse
 import numpy as np
-import matplotlib.pyplot as plt
 
 SUPPORTED_AUDIO_FORMATS = ['.m4a', '.wav', '.mp3', '.flac']
 
@@ -22,7 +20,8 @@ def format_duration(ms):
         return f"{seconds}s"
 
 
-def split_audio(audio, chunk_length_ms, output_folder):
+def split_audio(file_path, chunk_length_ms, output_folder):
+    audio = AudioSegment.from_file(file_path)
     total_length_ms = len(audio)
     chunks = []
 
@@ -44,12 +43,6 @@ def split_audio(audio, chunk_length_ms, output_folder):
         print(f"Exported {chunk_name}.wav")
 
 
-def max_value(audio):
-    samples = np.array(audio.get_array_of_samples())
-    samples = np.array(samples, dtype=float)
-    return np.max(np.abs(samples))
-
-
 def process_file(file_path, chunk_length_ms, input_folder):
     if not os.path.isfile(file_path):
         print(f"Error: {file_path} is not a file.")
@@ -63,12 +56,8 @@ def process_file(file_path, chunk_length_ms, input_folder):
     base_name = os.path.splitext(os.path.basename(file_path))[0]
     duration = format_duration(chunk_length_ms)
     output_folder = os.path.join(input_folder, f"{base_name}_{duration}")
-    chunk_name = os.path.join(input_folder, base_name)
-    audio = AudioSegment.from_file(file_path)
-    config_file = os.path.join(input_folder, f"{base_name}.config")
-    with open(config_file, 'w') as config:
-        config.write(f"{file_path},{max_value(audio)}")
     split_audio(file_path, chunk_length_ms, output_folder)
+
 
 def process_all_files(input_folder, chunk_length_ms):
     for file_name in os.listdir(input_folder):
