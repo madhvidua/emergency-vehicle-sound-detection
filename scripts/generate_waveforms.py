@@ -42,7 +42,7 @@ def generate_waveforms(input_folder):
             plot_waveform(audio_chunk, chunk_name)
             print(f"Generated waveform for {file_name}")
 
-# Example usage: ```python scripts/generate_waveforms.py --input_folder ./data/Sample_1_1h0m```
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate waveforms for WAV files in a folder.")
     parser.add_argument("--input_folder", type=str, required=True, help="Folder containing WAV files")
