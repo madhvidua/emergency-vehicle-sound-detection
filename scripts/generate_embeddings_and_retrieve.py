@@ -33,7 +33,6 @@ class ThreeSecondAudioData(AudioData):
 
     def __init__(self, audio_folder):
         super().__init__(audio_folder)
-        self.audio_paths = self.get_audio_paths()
 
     def get_chunk_length_seconds(self):
         return self.__CHUNK_LENGTH_SECONDS
@@ -42,13 +41,12 @@ class ThreeSecondAudioData(AudioData):
         return self.__EXPECTED_EMBEDDING_DIMENSION
 
 
-class FiveSecondAudioData(AudioData):
-    __CHUNK_LENGTH_SECONDS = 5
-    __EXPECTED_EMBEDDING_DIMENSION = (5, 128)
+class OneSecondAudioData(AudioData):
+    __CHUNK_LENGTH_SECONDS = 1
+    __EXPECTED_EMBEDDING_DIMENSION = (1, 128)
 
     def __init__(self, audio_folder):
         super().__init__(audio_folder)
-        self.audio_paths = self.get_audio_paths()
 
     def get_chunk_length_seconds(self):
         return self.__CHUNK_LENGTH_SECONDS
@@ -60,12 +58,12 @@ class FiveSecondAudioData(AudioData):
 class AudioDataFactory:
     @staticmethod
     def create_audio_data(chunk_length, audio_folder):
-        if chunk_length == 3:
+        if chunk_length == 1:
+            return OneSecondAudioData(audio_folder)
+        elif chunk_length == 3:
             return ThreeSecondAudioData(audio_folder)
-        elif chunk_length == 5:
-            return FiveSecondAudioData(audio_folder)
         else:
-            raise ValueError("Invalid chunk length. Only 3 or 5 seconds are supported.")
+            raise ValueError("Invalid chunk length. Only 1 or 3 seconds are supported.")
 
 
 class Embedding:
