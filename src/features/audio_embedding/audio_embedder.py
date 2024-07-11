@@ -1,6 +1,9 @@
+from abc import ABC, abstractmethod
+
 import torch
 from tqdm import tqdm
-from abc import ABC, abstractmethod
+
+import config
 
 
 class AudioEmbedder(ABC):
@@ -29,11 +32,8 @@ class AudioEmbedder(ABC):
 
 
 class VGGishAudioEmbedder(AudioEmbedder):
-    MODEL_NAME = 'harritaylor/torchvggish'
-    MODEL_TYPE = 'vggish'
-
     def load_model(self):
-        self.model = torch.hub.load(self.MODEL_NAME, self.MODEL_TYPE).to(self.device)
+        self.model = torch.hub.load(config.MODEL_NAME, config.MODEL_TYPE).to(self.device)
         self.model.postprocess = False
         self.model.device = self.device
         self.model.eval()

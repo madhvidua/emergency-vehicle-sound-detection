@@ -1,5 +1,6 @@
 from sklearn.model_selection import train_test_split
-from .file_manager import FileManager
+
+from utils.file_manager import FileManager
 
 
 class DataSplitter:
@@ -11,10 +12,11 @@ class DataSplitter:
 
     def split_data(self):
         # Check and create directories
-        FileManager.check_and_create_dirs(self.train_dir, self.test_dir)
+        for directory in [self.train_dir, self.test_dir]:
+            FileManager.create_directory(directory=directory, allow_existing=True, allow_non_empty=False)
 
         # Get all files
-        all_files = FileManager.get_all_files(self.source_dir)
+        all_files = FileManager.get_all_non_system_files(self.source_dir)
         print(f"Total files found: {len(all_files)}")
 
         if not all_files:

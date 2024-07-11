@@ -3,7 +3,6 @@ import os
 from collections import defaultdict
 
 
-# sjakcbkjasdhcljdhj
 class FileStructure:
     def __init__(self, base_dir):
         self.base_dir = base_dir
@@ -95,6 +94,6 @@ def main():
     FileStructurePrinter.print_duplicates(duplicate_files)
 
 
-# python describe_labeled_data.py --base_dir data/test
+# python -m src.dataset.utils.describe_labeled_data --base_dir data/test_labeled
 if __name__ == "__main__":
     main()

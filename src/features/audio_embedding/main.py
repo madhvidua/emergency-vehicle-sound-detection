@@ -1,6 +1,8 @@
-import torch
-import numpy as np
 import argparse
+
+import numpy as np
+import torch
+
 from .audio_data import AudioDataFactory
 from .audio_embedder import VGGishAudioEmbedder
 from .embedding import Embedding
@@ -15,7 +17,6 @@ def main():
                         help="Length of the audio chunks in seconds (1 or 3)")
     parser.add_argument('--query_audio_path', type=str, default=None,
                         help="Path to the query audio file for retrieval. If not provided, retrieval will be skipped.")
-    parser.parse_args()
     parser.add_argument('--replace_existing', action='store_true', help="Replace existing embedding file if it exists")
 
     args = parser.parse_args()

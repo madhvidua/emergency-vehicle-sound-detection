@@ -1,7 +1,9 @@
 import os
+
 from pydub import AudioSegment
 from tqdm import tqdm
-from .utils import format_duration
+
+from .time import format_duration
 
 SUPPORTED_AUDIO_FORMATS = ['.m4a', '.wav', '.mp3', '.flac']
 OUTPUT_AUDIO_FILE_FORMAT = 'wav'
